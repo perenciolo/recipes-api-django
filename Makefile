@@ -1,4 +1,4 @@
-.phony: create-app up test lint build sh
+.phony: create-app up test lint build sh logs
 
 create-app:
 	UID=${UID} GID=${GID} docker-compose run app sh -c "django-admin startproject app ."
@@ -18,3 +18,6 @@ lint:
 
 sh:
 	UID=${UID} GID=${GID} docker-compose exec app sh -c "$(ARGS)"
+
+logs:
+	UID=${UID} GID=${GID} docker-compose logs app
