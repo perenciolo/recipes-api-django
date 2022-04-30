@@ -1,4 +1,4 @@
-.phony: create-app up test lint build
+.phony: create-app up test lint build sh
 
 create-app:
 	UID=${UID} GID=${GID} docker-compose run app sh -c "django-admin startproject app ."
@@ -14,4 +14,7 @@ test:
 
 lint:
 	UID=${UID} GID=${GID} docker-compose run --rm app sh -c "autopep8 --in-place --aggressive --aggressive /app/**/*.py"
-	UID=${UID} GID=${GID} docker-compose run --rm app sh -c "flake8"
+	UID=${UID} GID=${GID} docker-compose run --rm app sh -c "flake8 --ignore=E501"
+
+sh:
+	UID=${UID} GID=${GID} docker-compose exec app sh -c "$(ARGS)"
